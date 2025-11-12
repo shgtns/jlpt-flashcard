@@ -4,47 +4,82 @@ import "./App.css";
 function App() {
   const [parole, setParole] = useState([]);
   const [selezionate, setSelezionate] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
 
+  // Carica CSV
   useEffect(() => {
-    fetch("/parole.csv")
-      .then((res) => res.text())
-      .then((text) => {
+    fetch("./parole.csv")
+      .then(res => res.text())
+      .then(text => {
         const righe = text.trim().split("\n").slice(1);
-        const data = righe.map((r) => {
+        const data = righe.map(r => {
           const [livello, parola, lettura, significato, frase, codice] = r.split(",");
           return { livello, parola, lettura, significato, frase, codice };
         });
         setParole(data);
-        genera(data);
+        generaCasuali(data);
       });
   }, []);
 
-  const genera = (lista = parole) => {
-    const livelli = ["N5", "N4", "N3", "N2", "N1"];
-    const random = livelli
-      .map((lvl) => {
-        const subset = lista.filter((p) => p.livello === lvl);
-        return subset[Math.floor(Math.random() * subset.length)];
-      })
-      .filter(Boolean);
+  // Genera 5 parole casuali (una per livello)
+  const generaCasuali = (lista = parole) => {
+    const livelli = ["N5","N4","N3","N2","N1"];
+    const random = livelli.map(lvl => {
+      const subset = lista.filter(p => p.livello === lvl);
+      return subset[Math.floor(Math.random() * subset.length)];
+    }).filter(Boolean);
     setSelezionate(random);
+    setIndex(0);
+    setFlipped(false);
   };
+
+  const prossimaCarta = () => {
+    setFlipped(false);
+    setIndex(prev => prev + 1);
+  };
+
+  if(selezionate.length === 0) return <p>Caricamento...</p>;
+
+  // Controllo se abbiamo finito le 5 carte
+  const finito = index >= selezionate.length;
 
   return (
     <div className="App">
       <h1>Flashcard JLPT</h1>
-      {selezionate.map((p, i) => (
-        <div key={i} className="card">
-          <h2>{p.livello} - {p.parola}</h2>
-          <p><strong>Lettura:</strong> {p.lettura}</p>
-          <p><strong>Significato:</strong> {p.significato}</p>
-          <p><em>{p.frase}</em></p>
+
+      {!finito ? (
+        <div className="card-container">
+          <div 
+            className={`card ${flipped ? "flipped" : ""}`} 
+            onClick={() => setFlipped(!flipped)}
+          >
+            <div className="front">
+              <div className="flip-icon">🔄</div>
+              <h2>{selezionate[index].livello} - {selezionate[index].parola}</h2>
+            </div>
+            <div className="back">
+              <div className="flip-icon">🔄</div>
+              <p><strong>Lettura:</strong> {selezionate[index].lettura}</p>
+              <p><strong>Significato:</strong> {selezionate[index].significato}</p>
+              <p><em>{selezionate[index].frase}</em></p>
+            </div>
+          </div>
+          <button onClick={prossimaCarta}>Avanti</button>
         </div>
-      ))}
-      <button onClick={() => genera()}>Nuove parole</button>
+      ) : (
+        <div className="riepilogo">
+          <h2>Riepilogo</h2>
+          <ul>
+            {selezionate.map((p, i) => (
+              <li key={i}>{p.livello} - {p.parola}</li>
+            ))}
+          </ul>
+          <button onClick={() => generaCasuali()}>Altre 5</button>
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
-

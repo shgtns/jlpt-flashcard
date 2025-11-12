@@ -1,14 +1,16 @@
 {
   "name": "jlpt-flashcard",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && gh-pages -d dist"
   },
+  "homepage": "https://shgtns.github.io/jlpt-flashcard",
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
