@@ -16,7 +16,6 @@ html, body {
 /* App wrapper: centratura verticale ripristinata */
 .App {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  padding: 18px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,7 +167,7 @@ p.significato {
 p.example {
   margin: 8px 12px 0;
   color: #332b3a;
-  line-height: 1.45;
+  line-height: 1.95;
   text-align: center;
   word-break: break-word;
   font-size: 1.5em;
@@ -281,8 +280,8 @@ p, li {
 
 /* Responsive */
 @media (max-width: 420px) {
-  .card-container { height: 240px; width: calc(100vw - 36px); }
+  .card-container { height: 360px; width: calc(100vw - 36px); }
   h2.nihongo { font-size: 3rem; }
   p.word { font-size: 2rem; }
-  ruby rt { font-size: 0.68em; }
+  ruby rt { font-size: 0.58em; }
 }
