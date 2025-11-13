@@ -4,11 +4,15 @@ html, body {
   margin: 0;
 }
 
+#root{
+  width: 100%;
+  height: 100%;
+}
 .App {
   font-family: system-ui, sans-serif;
-  background: #fef6e4;
-  color: #333;
-  padding: 0 40px 20px;
+  background: #696660;
+  color: #3a3835;
+  padding: 0 40px 70px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -20,7 +24,7 @@ html, body {
 
 h1 {
   margin-bottom: 30px;
-  color: #ffb3b3;
+  color: #c7c9ba;
 }
 
 .card-container {
@@ -43,7 +47,7 @@ h1 {
   transform: rotateY(180deg);
 }
 
-.card .front, .card .back {
+.card .front, .card .back, .riepilogo {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -57,12 +61,12 @@ h1 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.card .front {
-  background: #ffe0ac;
+.card .front, .riepilogo {
+  background: #fdeed3;
 }
 
 .card .back {
-  background: #cce7ff;
+  background: #daccff;
   transform: rotateY(180deg);
   text-align: left;
 }
@@ -84,7 +88,7 @@ button {
   margin-top: 40px; /* più spazio dalla carta */
   padding: 12px 25px;
   border: none;
-  background: #ffb3b3;
+  background: #fdeed3;
   border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
@@ -93,5 +97,6 @@ button {
 }
 
 button:hover {
-  background: #ff9999;
+  background: #4b0303;
+  color: #fdeed3;
 }

@@ -63,6 +63,9 @@ function App() {
               <p><strong>Lettura:</strong> {selezionate[index].lettura}</p>
               <p><strong>Significato:</strong> {selezionate[index].significato}</p>
               <p><em>{selezionate[index].frase}</em></p>
+              <p><em><a href={`https://jisho.org/search/${encodeURIComponent(selezionate[index].parola)}%20%23sentences`}>
+                       Cerca frase su Jisho
+                     </a></em></p>
             </div>
           </div>
           <button onClick={prossimaCarta}>Avanti</button>
@@ -72,7 +75,7 @@ function App() {
           <h2>Riepilogo</h2>
           <ul>
             {selezionate.map((p, i) => (
-              <li key={i}>{p.livello} - {p.parola}</li>
+              <li key={i}>{p.livello} - {p.parola} - {p.lettura}</li>
             ))}
           </ul>
           <button onClick={() => generaCasuali()}>Altre 5</button>
