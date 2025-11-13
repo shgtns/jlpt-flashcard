@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Furigana from "./Furigana";
+import FraseFurigana from "./FraseFurigana";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 
@@ -60,14 +61,15 @@ function App() {
               <div className="flip-icon"><i className="fas fa-sync-alt"></i></div>
               <div className="livello"><p><strong>{selezionate[index].livello}</strong></p></div>
               <h2 className="nihongo">{selezionate[index].parola}</h2>
-
             </div>
             <div className="back">
               <div className="flip-icon"><i className="fas fa-sync-alt"></i></div>
               <div className="livello"><p><strong>{selezionate[index].livello}</strong></p></div>
               <p className="word nihongo"><Furigana word={selezionate[index]?.parola || ""} furigana={selezionate[index]?.lettura || ""} /></p>
               <p className="significato">{selezionate[index].significato}</p>
-              <p className="example"><em>{selezionate[index].frase_furigana}</em></p>
+              <p className="example"><em>
+                  <FraseFurigana html={selezionate[index]?.frase_furigana || selezionate[index]?.frase || ""} />
+                </em></p>
               <p className="jisho"><a href={`https://jisho.org/search/${encodeURIComponent(selezionate[index].parola)}%20%23sentences`} target="_blank" rel="noreferrer">
                        Cerca frasi su Jisho
                      </a></p>
@@ -86,7 +88,7 @@ function App() {
         <div className="card-container">
           <div className="riepilogo">
             <h2>Riepilogo</h2>
-            <p>Hai saputo {risposteCorrette} su {selezionate.length} parole!</p>
+            <p>{risposteCorrette} su {selezionate.length} parole!</p>
             <ul>
               {selezionate.map((p, i) => (
                 <li key={i}>{p.livello} - {p.parola} - {p.lettura}</li>

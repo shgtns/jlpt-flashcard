@@ -1,8 +1,11 @@
-/* Occupazione schermo completa */
+/* Occupazione schermo completa e reset base */
 html, body {
   margin: 0;
   background: #696660;
   color: #3a3835;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 #root {
@@ -10,186 +13,204 @@ html, body {
   height: 100%;
 }
 
+/* App wrapper: centratura verticale ripristinata */
 .App {
-  font-family: system-ui, sans-serif;
-  padding: 0 40px 0px;
-  text-align: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* centratura verticale */
-  min-height: 100%;
+  justify-content: center; /* <- centratura verticale ripristinata */
+  min-height: 100vh;
+  text-align: center;
 }
 
 h1 {
-  margin: 0 0 -12px 0;
-  color:#fdeed3;
+  margin: 0 0 -12px 0;;
+  color: #fdeed3;
+  font-size: 3.5rem;
 }
 
-h2 {
-  margin: 0;
-}
-h2.nihongo{
-    font-size:5em;
-  line-height: 1em;
-}
-.livello{
-  position: absolute;
-  right:10px;
-  top:10px;
-  display: flex;
-  font-size:1.4em;
-}
-.nihongo {
-  font-family: "Klee One", cursive;
-  font-optical-sizing: auto;
-}
-p.nihongo{
-  font-size:3em;
-}
-ruby {
-
-}
-ruby rt {
-  font-size: 0.4em;            /* riduce la dimensione dei furigana */
-  color: #000000;              /* colore piacevole, personalizzabile */
-  font-family: "Noto Sans JP", "Noto Serif JP", sans-serif, serif;
-  letter-spacing: 0.04em;
-  margin: 0px;
-}
-span.nihongo{
-  font-size:2.9em;
-}
-
-span.furigana{
-  font-weight: 400;
-  font-size:1em;
-  font-family: system-ui, sans-serif;
-}
-.back p{
-  line-height: 1.1em;
-  margin: 4px 10px;
-}
-p.word{
-  text-align: center;
-  padding:15px;
-  margin-top:-50px !important;
-}
-p.significato{
-  text-align: center;
-}
-p.example .nihongo{
-  font-size:1.4em;
-  line-height: 1.4em;
-}
-
-.flip-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 24px;
-  pointer-events: none;
-}
-
-/* Contenitore card */
+/* -----------------------------------------
+   Card / layout generale
+   ----------------------------------------- */
 .card-container {
   perspective: 1000px;
-  width: 365px;
-  height: 251px;
- /* margin-bottom: 40px; */
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  height: 300px;
+  margin: 0px auto 0px;   /* auto centra orizzontalmente; spazio sotto per i bottoni */
+  display: flex;
+  flex-direction: column;   /* stack: prima la card, poi i bottoni */
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
 }
 
-/* Card con animazione */
+/* Card base */
 .card {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: relative; /* importante per .livello e .flip-icon */
   transform-style: preserve-3d;
   transition: transform 0.6s;
   cursor: pointer;
-  animation: fadeInZoom 0.4s ease;
+  animation: fadeInZoom 0.35s ease;
+  border-radius: 16px;
+  z-index: 10;
 }
 
+/* animazione */
 @keyframes fadeInZoom {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .card.flipped {
   transform: rotateY(180deg);
 }
 
-/* Fronte / Retro */
-.card .front, .card .back {
+/* FRONT / BACK - stesso box model per evitare shift */
+.card .front,
+.card .back {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
   backface-visibility: hidden;
   border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  padding: 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  gap: 8px;
+  overflow: visible; /* permetti al contenuto (es. link) di non essere tagliato */
+  align-items: center;      /* centra orizzontalmente */
+  justify-content: center;  /* centra verticalmente: fronte e retro */
 }
 
-.card .front, .riepilogo {
+/* FRONT: kanji centrato */
+.card .front {
   background: #fdeed3;
+  text-align: center;
 }
 
+/* BACK: contenuto centrato (ma disposto verticalmente dall'alto se serve)
+   se vuoi che il contenuto inizi più in alto, puoi cambiare justify-content a flex-start */
 .card .back {
   background: #daccff;
   transform: rotateY(180deg);
-  text-align: left;
+  text-align: center;
+  padding-top: 22px;
 }
 
-/* Bottoni */
+/* Badge livello */
+.livello {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: rgba(0,0,0,0.08);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  z-index: 40;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Flip icon (sempre visibile in alto a sinistra) */
+.flip-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 40;
+  color: rgba(0,0,0,0.6);
+}
+
+/* Kanji grande (fronte) */
+h2.nihongo {
+  font-size: 4.0rem;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 0;
+  word-break: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+.nihongo{
+  font-family: "Klee One", cursive;
+}
+
+p.nihongo, span.nihongo{
+
+}
+
+/* Parola (retro) - grosso e centrato */
+p.word {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 2.3em;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Significato centrato */
+p.significato {
+  text-align: center;
+  margin: 6px 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #241b2a;
+}
+
+/* Frase di esempio (usando FraseFurigana con innerHTML sanitizzato) */
+p.example {
+  margin: 8px 12px 0;
+  color: #332b3a;
+  line-height: 1.45;
+  text-align: center;
+  word-break: break-word;
+  font-size: 1.5em;
+}
+
+/* Link Jisho: assicurati che sia visibile e sotto la frase */
+p.jisho {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  z-index: 30;
+}
+p.jisho a {
+  color: #1d1a3a; /* contrasto scuro per visibilità */
+  text-decoration: underline;
+  background: transparent;
+}
+
+/* Bottoni risposta: NON più coperti, sotto la card */
+.bottoni-risposta {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  justify-content: center;
+  z-index: 50;
+}
+
 button {
-  padding: 12px 35px;
+  padding: 10px 28px;
   border: none;
   background: #fdeed3;
+  color: #222;
   border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1em;
-  transition: background 0.3s;
+  font-size: 0.98rem;
+  transition: background 0.25s, transform 0.08s;
 }
-
-button:hover {
-  background: #4b0303;
-  color: #fdeed3;
-}
-
-/* Bottoni risposta */
-.bottoni-risposta {
-  display: flex;
-  gap: 42px;
-  margin-top: 30px;
-  justify-content: center;
-}
-
-button.saputo {
-  background: #a8e6cf;
-}
-
-button.saputo:hover {
-  background: #81d4b8;
-}
-
-button.non-saputo {
-  background: #ff8b94;
-}
-
-button.non-saputo:hover {
-  background: #ff6f78;
-}
+button:hover { transform: translateY(-2px); }
+button.saputo { background: #a8e6cf; }
+button.non-saputo { background: #ff8b94; }
+button:hover.saputo { background: #81d4b8; }
+button:hover.non-saputo { background: #ff6f78; }
 
 /* Riepilogo come card */
 .riepilogo {
@@ -197,30 +218,71 @@ button.non-saputo:hover {
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   width: 362px;
-  min-height: 220px;
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  padding: 0px;
-  margin-bottom:10px;
+  padding: 16px;
+  margin-bottom: 10px;
   text-align: center;
 }
-
-.riepilogo h2 {
-  font-size:2em;
-  margin-top: 0;
-  margin-bottom: 10px;
+.riepilogo p{
+  font-weight: 600;
 }
 
-.riepilogo ul {
-  list-style: none;
+.riepilogo ul{
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+/* -----------------------------------------
+   Ruby / Furigana styling - garantire furigana sopra i kanji
+   (use inline-flex + column-reverse so rt appears above the base)
+   ----------------------------------------- */
+ruby {
+  display: inline-flex;
+  flex-direction: column-reverse; /* rt sopra, base sotto */
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+ruby > * {
+  display: block;
+}
+
+/* base text (kanji/kana) - mantiene dimensione leggibile */
+ruby rb, ruby > :not(rt) {
+  font-size: 1em;
+  line-height: 1;
+  margin-bottom: 0.12em;
+  transform: translateY(-0.02em);
+  
+}
+
+/* furigana (rt): leggibili e posizionate correttamente sopra */
+ruby rt {
+  font-size: 0.42em;    /* dimensione leggibile */
+  line-height: 1;
+  margin-bottom: 0.12em; /* distanza tra rt e kanji */
+  color: #222;
+  transform: translateY(-0.02em);
+  font-family: "Noto Sans JP", "Noto Serif JP", sans-serif, serif;
+  letter-spacing: 0.04em;
+  margin-top: -1.6em;
+}
+
+/* piccoli reset */
+p, li {
+  margin: 0;
   padding: 0;
-  margin: 10px 0 20px;
-  width: 100%;
 }
 
-.riepilogo li {
-  margin: 4px 0;
-  font-weight: 500;
+/* sicurezza z-index: card sopra sfondo, bottoni sopra il resto */
+.card, .riepilogo { z-index: 10; }
+
+/* Responsive */
+@media (max-width: 420px) {
+  .card-container { height: 240px; width: calc(100vw - 36px); }
+  h2.nihongo { font-size: 3rem; }
+  p.word { font-size: 2rem; }
+  ruby rt { font-size: 0.68em; }
 }
