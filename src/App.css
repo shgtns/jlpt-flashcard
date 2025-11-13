@@ -1,53 +1,76 @@
-/* Assicurati che html e body occupino tutto lo schermo */
+/* Occupazione schermo completa */
 html, body {
   height: 100%;
   margin: 0;
 }
 
-#root{
+#root {
   width: 100%;
   height: 100%;
 }
+
 .App {
   font-family: system-ui, sans-serif;
   background: #696660;
   color: #3a3835;
-  padding: 0 40px 70px;
+  padding: 0 40px 20px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; /* centratura verticale */
-  min-height: 100%; /* fa occupare tutto lo schermo */
+  min-height: 100%;
 }
 
+.nihongo{
+  font-family: "Noto Serif JP", serif, system-ui;
+}
+p .nihongo{
+  font-weight: 600;
+  font-size:1.3em;
+}
 
 h1 {
-  margin-bottom: 30px;
-  color: #c7c9ba;
+  margin-bottom: -12px;
+  color:#fdeed3;
 }
 
+/* Contenitore card */
 .card-container {
   perspective: 1000px;
-  width: 320px;
-  height: 220px;
-  margin-bottom: 40px; /* spazio maggiore sotto la carta */
+  width: 362px;
+  height: 251px;
+ /* margin-bottom: 40px; */
 }
 
+/* Card con animazione */
 .card {
   width: 100%;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
-  cursor: pointer; /* tutta la carta cliccabile */
+  cursor: pointer;
+  animation: fadeInZoom 0.4s ease;
+}
+
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .card.flipped {
   transform: rotateY(180deg);
 }
 
-.card .front, .card .back, .riepilogo {
+/* Fronte / Retro */
+.card .front, .card .back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -55,12 +78,18 @@ h1 {
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
-  padding: 0px;
+  padding: 0;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
+.back p{
+  line-height: 1.1em;
+  margin: 4px 10px;
+  padding: 0;
+  font-size:large;
+}
 .card .front, .riepilogo {
   background: #fdeed3;
 }
@@ -72,7 +101,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.2em; /* domanda più grande */
+  font-size: 3.5em;
   margin: 0;
 }
 
@@ -81,12 +110,12 @@ h2 {
   top: 10px;
   left: 10px;
   font-size: 24px;
-  pointer-events: none; /* lascia cliccare tutta la carta */
+  pointer-events: none;
 }
 
+/* Bottoni */
 button {
-  margin-top: 40px; /* più spazio dalla carta */
-  padding: 12px 25px;
+  padding: 12px 35px;
   border: none;
   background: #fdeed3;
   border-radius: 12px;
@@ -99,4 +128,63 @@ button {
 button:hover {
   background: #4b0303;
   color: #fdeed3;
+}
+
+/* Bottoni risposta */
+.bottoni-risposta {
+  display: flex;
+  gap: 42px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+button.saputo {
+  background: #a8e6cf;
+}
+
+button.saputo:hover {
+  background: #81d4b8;
+}
+
+button.non-saputo {
+  background: #ff8b94;
+}
+
+button.non-saputo:hover {
+  background: #ff6f78;
+}
+
+/* Riepilogo come card */
+.riepilogo {
+  background: #fdeed3;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  width: 362px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  padding: 0px;
+  margin-bottom:10px;
+  text-align: center;
+}
+
+.riepilogo h2 {
+  font-size:2em;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.riepilogo ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px;
+  width: 100%;
+}
+
+.riepilogo li {
+  margin: 4px 0;
+  font-weight: 500;
+  color: #3a3835;
 }
