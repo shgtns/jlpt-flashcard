@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Furigana from "./Furigana";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 
@@ -9,16 +10,12 @@ function App() {
   const [flipped, setFlipped] = useState(false);
   const [risposteCorrette, setRisposteCorrette] = useState(0);
 
-  // Carica CSV
+
+    // Carica JSON
   useEffect(() => {
-    fetch("./parole.csv")
-      .then(res => res.text())
-      .then(text => {
-        const righe = text.trim().split("\n").slice(1);
-        const data = righe.map(r => {
-          const [livello, parola, lettura, significato, frase, codice] = r.split(",");
-          return { livello, parola, lettura, significato, frase, codice };
-        });
+    fetch("./parole_furigana.json")
+      .then(res => res.json())
+      .then(data => {
         setParole(data);
         generaCasuali(data);
       });
@@ -49,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+      
       <h1>Flashcard JLPT</h1>
 
       {!finito ? (
@@ -60,15 +58,17 @@ function App() {
           >
             <div className="front">
               <div className="flip-icon"><i className="fas fa-sync-alt"></i></div>
+              <div className="livello"><p><strong>{selezionate[index].livello}</strong></p></div>
               <h2 className="nihongo">{selezionate[index].parola}</h2>
+
             </div>
             <div className="back">
               <div className="flip-icon"><i className="fas fa-sync-alt"></i></div>
-              <p><strong>{selezionate[index].livello}</strong> - <span className="nihongo">{selezionate[index].parola}</span></p>
-              <p><strong>Lettura:</strong> <span className="nihongo">{selezionate[index].lettura}</span></p>
-              <p><strong>Significato:</strong> {selezionate[index].significato}</p>
-              <p><em><span className="nihongo">{selezionate[index].frase}</span></em></p>
-              <p><a href={`https://jisho.org/search/${encodeURIComponent(selezionate[index].parola)}%20%23sentences`} target="_blank" rel="noreferrer">
+              <div className="livello"><p><strong>{selezionate[index].livello}</strong></p></div>
+              <p className="word nihongo"><Furigana word={selezionate[index]?.parola || ""} furigana={selezionate[index]?.lettura || ""} /></p>
+              <p className="significato">{selezionate[index].significato}</p>
+              <p className="example"><em>{selezionate[index].frase_furigana}</em></p>
+              <p className="jisho"><a href={`https://jisho.org/search/${encodeURIComponent(selezionate[index].parola)}%20%23sentences`} target="_blank" rel="noreferrer">
                        Cerca frasi su Jisho
                      </a></p>
             </div>

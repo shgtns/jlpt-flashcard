@@ -1,7 +1,8 @@
 /* Occupazione schermo completa */
 html, body {
-  height: 100%;
   margin: 0;
+  background: #696660;
+  color: #3a3835;
 }
 
 #root {
@@ -11,9 +12,7 @@ html, body {
 
 .App {
   font-family: system-ui, sans-serif;
-  background: #696660;
-  color: #3a3835;
-  padding: 0 40px 20px;
+  padding: 0 40px 0px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -22,23 +21,80 @@ html, body {
   min-height: 100%;
 }
 
-.nihongo{
-  font-family: "Noto Serif JP", serif, system-ui;
-}
-p .nihongo{
-  font-weight: 600;
-  font-size:1.3em;
+h1 {
+  margin: 0 0 -12px 0;
+  color:#fdeed3;
 }
 
-h1 {
-  margin-bottom: -12px;
-  color:#fdeed3;
+h2 {
+  margin: 0;
+}
+h2.nihongo{
+    font-size:5em;
+  line-height: 1em;
+}
+.livello{
+  position: absolute;
+  right:10px;
+  top:10px;
+  display: flex;
+  font-size:1.4em;
+}
+.nihongo {
+  font-family: "Klee One", cursive;
+  font-optical-sizing: auto;
+}
+p.nihongo{
+  font-size:3em;
+}
+ruby {
+
+}
+ruby rt {
+  font-size: 0.4em;            /* riduce la dimensione dei furigana */
+  color: #000000;              /* colore piacevole, personalizzabile */
+  font-family: "Noto Sans JP", "Noto Serif JP", sans-serif, serif;
+  letter-spacing: 0.04em;
+  margin: 0px;
+}
+span.nihongo{
+  font-size:2.9em;
+}
+
+span.furigana{
+  font-weight: 400;
+  font-size:1em;
+  font-family: system-ui, sans-serif;
+}
+.back p{
+  line-height: 1.1em;
+  margin: 4px 10px;
+}
+p.word{
+  text-align: center;
+  padding:15px;
+  margin-top:-50px !important;
+}
+p.significato{
+  text-align: center;
+}
+p.example .nihongo{
+  font-size:1.4em;
+  line-height: 1.4em;
+}
+
+.flip-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  pointer-events: none;
 }
 
 /* Contenitore card */
 .card-container {
   perspective: 1000px;
-  width: 362px;
+  width: 365px;
   height: 251px;
  /* margin-bottom: 40px; */
 }
@@ -84,12 +140,6 @@ h1 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.back p{
-  line-height: 1.1em;
-  margin: 4px 10px;
-  padding: 0;
-  font-size:large;
-}
 .card .front, .riepilogo {
   background: #fdeed3;
 }
@@ -98,19 +148,6 @@ h1 {
   background: #daccff;
   transform: rotateY(180deg);
   text-align: left;
-}
-
-h2 {
-  font-size: 3.5em;
-  margin: 0;
-}
-
-.flip-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 24px;
-  pointer-events: none;
 }
 
 /* Bottoni */
@@ -186,5 +223,4 @@ button.non-saputo:hover {
 .riepilogo li {
   margin: 4px 0;
   font-weight: 500;
-  color: #3a3835;
 }
