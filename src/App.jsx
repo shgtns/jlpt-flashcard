@@ -14,7 +14,7 @@ function App() {
 
     // Carica JSON
   useEffect(() => {
-    fetch("./wordlist.json")
+    fetch("./merged.json")
       .then(res => res.json())
       .then(data => {
         setParole(data);
@@ -65,10 +65,15 @@ function App() {
             <div className="back">
               <div className="flip-icon"><i className="fas fa-sync-alt"></i></div>
               <div className="livello"><p><strong>{selezionate[index].level}</strong></p></div>
-              <p className="word nihongo"><Furigana word={selezionate[index]?.word || ""} furigana={selezionate[index]?.furigana || ""} /></p>
-              <p className="significato">{selezionate[index].meaning}</p>
-              <p className="pos">{selezionate[index]["Vocab-pos"]}</p>
-{/*              <p className="example"><em>
+               <p className="pos">{selezionate[index].pos.join(", ")}</p>
+              <p className="word nihongo">
+  {selezionate[index].word}
+  {selezionate[index].furigana && (<span className="furigana">[{selezionate[index].furigana}]</span>
+  )}
+</p>
+<p className="significato">{selezionate[index].meaning}</p>
+{/*              <Furigana word={selezionate[index]?.word || ""} furigana={selezionate[index]?.furigana || ""} />
+                <p className="example"><em>
                   <FraseFurigana html={selezionate[index]?.frase_furigana || selezionate[index]?.frase || ""} />
                 </em></p>*/}
               <p className="jisho"><a href={`https://jisho.org/search/${encodeURIComponent(selezionate[index].word)}%20%23sentences`} target="_blank" rel="noreferrer">

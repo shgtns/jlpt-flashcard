@@ -139,7 +139,7 @@ h1 {
 }
 .pos{
   position:absolute;
-  top:10px;
+  top:12px;
   
   text-align:right;
 }
@@ -291,6 +291,11 @@ ruby rb, ruby > :not(rt) {
 }
 
 /* furigana (rt): leggibili e posizionate correttamente sopra */
+.furigana{
+  font-size: 0.8em;
+  color: #505050;
+  padding-left:12px;
+}
 ruby rt {
   font-size: 0.42em;    /* dimensione leggibile */
   line-height: 1;
