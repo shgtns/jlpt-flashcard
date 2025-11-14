@@ -1,16 +1,16 @@
-# React + Vite
+# JLPT Flashcard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+very early stage project
 
-Currently, two official plugins are available:
+This is a really small project with the aim to create a simple web interface for a basic flashcard system about jplt words from N5 to N1.
+The idea is to have few functionality, an organized dataset and fast interaction, ideal as a shortcut on mobile phones.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built with react and vite.
+Kuromoji+react-furigana+dompurify
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Sources
+jlpt lists from 
+http://www.tanos.co.uk/jlpt/
+https://kanjiapi.dev/
+https://jlpt-vocab-api.vercel.app/ (https://github.com/wkei/jlpt-vocab-api)
+https://docs.google.com/spreadsheets/d/1uaUcQNyADAwP4k5rb0UNiQ1c8wPtWl1plqDHQryr75E/edit?gid=0#gid=0
