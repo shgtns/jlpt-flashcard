@@ -100,7 +100,7 @@ function Flashcards() {
             <p>{risposteCorrette} su {selezionate.length} parole!</p>
             <ul>
               {selezionate.map((p, i) => (
-                <li key={i}>{p.level} - {p.word} - {p.furigana}</li>
+                <li className="nihongo" key={i}>{p.level} - {p.word}{p.furigana && (<span className="furigana"> [{p.furigana}]</span>)}</li>
               ))}
             </ul>
           </div>
