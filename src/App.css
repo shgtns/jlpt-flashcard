@@ -15,7 +15,7 @@ html, body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  background-position: top 52px center;
+  background-position: top 15% center;
   background-size: 100px;
 }
 
@@ -36,12 +36,65 @@ h1 {
   font-size: 3.5rem;
 }
 
+/* Stile generale del nav e footer*/
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(26,26,26,0.9); /* semi-trasparente */
+  padding: 10px 0px;
+  z-index: 1000;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(26,26,26,0.9); /* semi-trasparente */
+  padding: 10px 0px;
+  z-index: 1000;
+  text-align:center
+}
+
+/* Lista orizzontale */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;     /* centrato orizzontalmente */
+}
+
+/* Link del menu */
+nav ul li a {
+  color: #fdeed3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+nav ul li a:hover {
+  color: #ff9800;
+}
+
+footer p{
+  color:#fdeed3
+}
+
+#about p{
+  text-align: left;
+}
+
+
 /* -----------------------------------------
    Card / layout generale
    ----------------------------------------- */
 .card-container {
   perspective: 1000px;
-  width: 380px;
+  width: 340px;
   max-width: calc(100vw - 48px);
   height: 340px;
   margin: 0px auto 0px;   /* auto centra orizzontalmente; spazio sotto per i bottoni */
@@ -96,6 +149,20 @@ h1 {
   transform-style: preserve-3d;
 }
 
+/* Riepilogo come card */
+.riepilogo {
+  background: #fdeed3;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  text-align: center;
+  justify-content: flex-start;
+}
+
 /* FRONT: kanji centrato */
 .card .front {
   background: #fdeed3;
@@ -105,7 +172,7 @@ h1 {
 /* BACK: contenuto centrato (ma disposto verticalmente dall'alto se serve)
    se vuoi che il contenuto inizi più in alto, puoi cambiare justify-content a flex-start */
 .card .back {
-  background: #daccff;
+  background: #e2e2e2;
   transform: rotateY(180deg);
   text-align: center;
   padding-top: 22px;
@@ -218,10 +285,25 @@ p.jisho a {
   background: transparent;
 }
 
+.riepilogo p{
+  font-weight: 600;
+}
+
+.riepilogo ul{
+  list-style-type: none;
+  padding-inline-start: 0;
+  text-align: left;
+  padding-left:35px;
+}
+
+.riepilogo ul li.nihongo {
+  font-size:1.2em;
+}
+
 /* Bottoni risposta: NON più coperti, sotto la card */
-.bottoni-risposta {
+.bottoni-risposta, .bottoni-sessione {
   display: flex;
-  gap: 20px;
+  gap: 52px;
   margin-top: 16px;
   justify-content: center;
   z-index: 50;
@@ -244,26 +326,6 @@ button.non-saputo { background: #ff8b94; }
 button:hover.saputo { background: #81d4b8; }
 button:hover.non-saputo { background: #ff6f78; }
 
-/* Riepilogo come card */
-.riepilogo {
-  background: #fdeed3;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  width: 362px;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-.riepilogo p{
-  font-weight: 600;
-}
-
-.riepilogo ul{
-  list-style-type: none;
-  padding-inline-start: 0;
-}
 /* -----------------------------------------
    Ruby / Furigana styling - garantire furigana sopra i kanji
    (use inline-flex + column-reverse so rt appears above the base)
